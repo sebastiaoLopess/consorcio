@@ -4,7 +4,6 @@ numpy
 matplotlib
 importlib
 passlib
-sqlite3
 seaborn
 io
 plotly
