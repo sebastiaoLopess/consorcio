@@ -1,0 +1,13 @@
+streamlit
+pandas
+numpy
+matplotlib
+importlib
+passlib
+sqlite3
+seaborn
+io
+plotly
+requests
+json
+datetime
