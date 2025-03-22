@@ -66,7 +66,7 @@ categorias_agg_quitacao = carteira_normal.groupby("classificacao_amortizado")["V
 
 categorias_agg_quitacao["Valor para Quitação"] = categorias_agg_quitacao["Valor para Quitação"].apply(lambda x: f"{x:,.0f}")
 
-cols = ['Cliente','Telefone','Grupo','Cota', 'R', 'D','% Amortizado', '% Quitação', 'Valor para Quitação', 	'Maior Lance','Menor Lance','Modelo','UF', 'Município','Próxima Assembleia','classificacao_amortizado','loja','Status Contrato']
+cols = ['Vendedor','Cliente','Telefone','Grupo','Cota', 'R', 'D','% Amortizado', '% Quitação', 'Valor para Quitação', 	'Maior Lance','Menor Lance','Modelo','UF', 'Município','Próxima Assembleia','classificacao_amortizado','loja','Status Contrato']
 
 tabela = carteira_normal[cols]
 

@@ -108,7 +108,7 @@ def main():
 
     categorias_agg_quitacao["Valor para Quitação"] = categorias_agg_quitacao["Valor para Quitação"].apply(lambda x: f"{x:,.0f}")
 
-    cols = ['Cliente','Telefone','Grupo','Cota', 'R', 'D','% Amortizado', '% Quitação', 'Valor para Quitação', 	'Maior Lance','Menor Lance','Modelo','UF', 'Município','Próxima Assembleia','classificacao_amortizado','Telefone_disparo']
+    cols = ['Vendedor','Cliente','Telefone','Grupo','Cota', 'R', 'D','% Amortizado', '% Quitação', 'Valor para Quitação', 	'Maior Lance','Menor Lance','Modelo','UF', 'Município','Próxima Assembleia','classificacao_amortizado','Telefone_disparo']
 
     tabela = carteira_normal[cols]
 
@@ -213,6 +213,7 @@ def main():
     # Cabeçalho fixo corretamente alinhado
     st.markdown(
         '<div class="tabela-header">'
+        '<div class="tabela-col">Vendedor</div>'
         '<div class="tabela-col">Cliente</div>'
         '<div class="tabela-col">Telefone</div>'
         '<div class="tabela-col">Grupo</div>'
@@ -229,7 +230,11 @@ def main():
 
     # Criar a tabela com botões para cada linha
     for index, row in tabela.iterrows():
-        col1, col2, col3, col4, col5, col6, col7, col8 = st.columns([1,1,1,1,1,1,1,1])  # Ajusta o layout das colunas
+        col1, col2, col3, col4, col5, col6, col7, col8, col9 = st.columns([1,1,1,1,1,1,1,1,1])  # Ajusta o layout das colunas
+
+        with col1:
+            #st.write(row["Cliente"])
+            st.markdown(f'<div class="tabela-row">{row["Cliente"]}</div>', unsafe_allow_html=True)
         
         with col1:
             #st.write(row["Cliente"])
