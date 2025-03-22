@@ -78,6 +78,8 @@ modelo_categoria_agg = carteira_normal.groupby(["Modelo", "classificacao_amortiz
 
 modelo_agg = carteira_normal.groupby(["Modelo"])["quantidade"].sum().reset_index()
 
+categorias_agg = categorias_agg[categorias_agg["loja"] == loja]
+
 
 # ---- CRIAÇÃO DE MEDIDAS ---- #
 
