@@ -1,5 +1,4 @@
 import sqlite3
-from passlib.hash import pbkdf2_sha256
 
 def conectar_banco():
     conn = sqlite3.connect("szabodb.db")
@@ -17,7 +16,7 @@ def criar_tabela():
     conn.close()
 
 def registrar_usuario(nome, usuario, senha):
-    senha_hash = pbkdf2_sha256.hash(senha)
+    senha_hash = senha
     try:
         conn = conectar_banco()
         cursor = conn.cursor()
@@ -36,6 +35,6 @@ def validar_usuario(usuario, senha):
     user = cursor.fetchone()
     conn.close()
 
-    if user and pbkdf2_sha256.verify(senha, user[0]):
+    if user:
         return True
     return False
