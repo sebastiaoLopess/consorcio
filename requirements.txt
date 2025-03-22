@@ -3,7 +3,6 @@ pandas
 numpy
 matplotlib
 importlib
-io
 plotly
 requests
 
