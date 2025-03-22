@@ -107,7 +107,7 @@ with col4:
     st.plotly_chart(fig_categoria_quitacao,use_container_width=True)
 
 classificacoes = modelo_categoria_agg["classificacao_amortizado"].unique()
-classificacao = st.selectbox("Esse filtro terá impacto somente nos gráficos abaixo dele", classificacoes)
+classificacao = st.selectbox("Esse filtro será aplicado somente nos gráficos abaixo dele", classificacoes)
 
 modelo_categoria_agg = modelo_categoria_agg[modelo_categoria_agg["classificacao_amortizado"] == classificacao]
 
@@ -139,6 +139,11 @@ fig_sca = px.scatter(modelo_categoria_agg, x="classificacao_amortizado", y="Mode
 st.plotly_chart(fig_sca,use_container_width=True)
 
 #modelo_categoria_agg = carteira_normal.groupby(["Modelo", "classificacao_amortizado"])["quantidade"].sum().reset_index()
+
+modelos = tabela["Modelo"].unique()
+modelo = st.selectbox("O filtro modelo será aplicado somente na tabela abaixo", modelos)
+
+tabela = tabela[tabela["Modelo"] == modelo]
 
 st.dataframe(tabela)
 
