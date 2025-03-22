@@ -51,8 +51,10 @@ def classificar(amortizado):
         return "ENTRE 50% E 79%"
     elif amortizado >= 30 and amortizado <= 49:
         return "ENTRE 30% E 49%"
+    elif amortizado >= 16 and amortizado <= 29:
+        return "ENTRE 16% E 29%"
     else:
-        return "ATÉ 29%"
+        return "ATÉ 15%"
 
 carteira_normal["classificacao_amortizado"] = carteira_normal["% Amortizado"].apply(classificar)
 
