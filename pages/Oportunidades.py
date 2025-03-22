@@ -60,7 +60,7 @@ carteira_normal["classificacao_amortizado"] = carteira_normal["% Amortizado"].ap
 
 #assembleias_agg_categorias = carteira_normal.groupby(["Próxima Assembleia", "Grupo"]).agg({"Maior Lance": "mean", "Menor Lance": "mean"}).reset_index()
 
-categorias_agg = carteira_normal.groupby("classificacao_amortizado")["quantidade"].sum().reset_index()
+categorias_agg = carteira_normal.groupby(["loja","classificacao_amortizado"])["quantidade"].sum().reset_index()
 
 categorias_agg_quitacao = carteira_normal.groupby("classificacao_amortizado")["Valor para Quitação"].mean().reset_index()
 
