@@ -8,6 +8,13 @@ import numpy as np
 import plotly.express as px
 import plotly.figure_factory as ff
 
+st.set_page_config(
+    page_title="Szabo Consorcios",
+    page_icon="📊",
+    layout="wide",  # Habilita o Wide Mode
+    initial_sidebar_state="expanded"  # Opções: "expanded", "collapsed", "auto"
+)
+
 carteira = pd.read_excel("carteiraAtiva.xlsx") # carrega o dado
 carteira["quantidade"] = 1
 
@@ -17,6 +24,7 @@ lojas = carteira["loja"].unique()
 loja = st.sidebar.selectbox("Loja", lojas)
 status_unique = carteira["Status Contrato"].unique()
 status = st.sidebar.selectbox("Status", status_unique)
+
 
 # ----- TRATAMENTO DE DADOS ---- #
 
@@ -57,11 +65,17 @@ categorias_agg_quitacao = carteira_normal.groupby("classificacao_amortizado")["V
 
 categorias_agg_quitacao["Valor para Quitação"] = categorias_agg_quitacao["Valor para Quitação"].apply(lambda x: f"{x:,.0f}")
 
-cols = ['Cliente','Telefone','Grupo','Cota', 'R', 'D','% Amortizado', '% Quitação', 'Valor para Quitação', 	'Maior Lance','Menor Lance','Modelo','UF', 'Município','Próxima Assembleia','classificacao_amortizado']
+cols = ['Cliente','Telefone','Grupo','Cota', 'R', 'D','% Amortizado', '% Quitação', 'Valor para Quitação', 	'Maior Lance','Menor Lance','Modelo','UF', 'Município','Próxima Assembleia','classificacao_amortizado','loja','Status Contrato']
 
 tabela = carteira_normal[cols]
 
+tabela = tabela[tabela["loja"] == loja]
+
+tabela = tabela[tabela["Status Contrato"] == status]
+
 modelo_categoria_agg = carteira_normal.groupby(["Modelo", "classificacao_amortizado"])["quantidade"].sum().reset_index()
+
+modelo_agg = carteira_normal.groupby(["Modelo"])["quantidade"].sum().reset_index()
 
 
 # ---- CRIAÇÃO DE MEDIDAS ---- #
@@ -90,6 +104,33 @@ with col4:
     fig_categoria_quitacao.update_traces(textposition="inside")  
 
     st.plotly_chart(fig_categoria_quitacao,use_container_width=True)
+
+classificacoes = modelo_categoria_agg["classificacao_amortizado"].unique()
+classificacao = st.selectbox("Esse filtro terá impacto somente nos gráficos abaixo dele", classificacoes)
+
+modelo_categoria_agg = modelo_categoria_agg[modelo_categoria_agg["classificacao_amortizado"] == classificacao]
+
+tabela = tabela[tabela["classificacao_amortizado"] == classificacao]
+
+fig_modelo = px.bar(modelo_categoria_agg, x="quantidade", y="Modelo")
+
+fig_modelo.update_traces(text=modelo_categoria_agg["quantidade"],  # Adiciona os números nas barras
+                    textposition="inside",  # Posiciona os números dentro da barra
+                    textfont=dict(family="Arial", size=12, color="white")) 
+
+fig_modelo.update_layout(
+    title="Quantidade de cotas por Modelo",
+    title_font=dict(family="Arial", size=10, color="black"),
+    height=600  
+)
+
+fig_modelo.update_layout(
+    yaxis=dict(categoryorder="total ascending"),  # 🔥 Ordena os vendedores pelo total de vendas
+    height=800,  # 🔥 Aumenta a altura para caber todos os vendedores
+    margin=dict(l=150, r=20, t=50, b=40),  # 🔥 Aumenta margem esquerda para nomes longos
+)
+
+st.plotly_chart(fig_modelo,use_container_width=True)
 
 
 fig_sca = px.scatter(modelo_categoria_agg, x="classificacao_amortizado", y="Modelo", size="quantidade", title="Dispersão entre Quantidade e Outra Variável")

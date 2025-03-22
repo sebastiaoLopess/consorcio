@@ -11,6 +11,13 @@ import requests
 import json
 from datetime import datetime
 
+st.set_page_config(
+    page_title="Szabo Consorcios",
+    page_icon="📊",
+    layout="wide",  # Habilita o Wide Mode
+    initial_sidebar_state="expanded"  # Opções: "expanded", "collapsed", "auto"
+)
+
 def main():
 
     url = "https://api.w-api.app/v1/message/send-text?instanceId=1S7TKN-BDR9ZI-3F420Z"
@@ -85,6 +92,8 @@ def main():
     carteira_normal = carteira[carteira["Status Contrato"] == status]
 
     carteira_normal = carteira_normal[carteira_normal["classificacao_amortizado"] == classificacao]
+
+    carteira_normal = carteira_normal[carteira_normal["Modelo"] == modelo]
 
     assembleias_agg = carteira_normal.groupby("Próxima Assembleia")["quantidade"].sum().reset_index()
 

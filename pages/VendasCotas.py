@@ -12,6 +12,13 @@ import json
 from datetime import datetime
 import plotly.graph_objects as go
 
+st.set_page_config(
+    page_title="Szabo Consorcios",
+    page_icon="📊",
+    layout="wide",  # Habilita o Wide Mode
+    initial_sidebar_state="expanded"  # Opções: "expanded", "collapsed", "auto"
+)
+
 def main():
 
     vendas = pd.read_excel("equipe_de_vendas.xlsx") # carrega o dado
