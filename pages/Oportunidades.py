@@ -143,9 +143,19 @@ st.plotly_chart(fig_sca,use_container_width=True)
 #modelo_categoria_agg = carteira_normal.groupby(["Modelo", "classificacao_amortizado"])["quantidade"].sum().reset_index()
 
 modelos = tabela["Modelo"].unique()
-modelo = st.selectbox("O filtro modelo será aplicado somente na tabela abaixo", modelos)
+modelo = st.multiselect("O filtro modelo será aplicado somente na tabela abaixo (Se nao selecionar nada sera filtrado TODOS)", modelos)
+vendedores = tabela["Vendedor"].unique()
+vendedor = st.selectbox("Vendedor", vendedores)
 
-tabela = tabela[tabela["Modelo"] == modelo]
+#tabela = tabela[tabela["Modelo"] == modelo]
+
+tabela = tabela[tabela["Vendedor"] == vendedor]
+
+if modelo:
+    tabela = tabela[tabela["Modelo"].isin(modelo)]
+else:
+    tabela = tabela  # Se nada for selecionado, mostra tudo
+
 
 st.dataframe(tabela)
 

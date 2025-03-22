@@ -162,7 +162,7 @@ def main():
                 border-radius: 8px;
                 box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
                 border: 1px solid #ddd;
-                font-size: 10px;
+                font-size: 8px;
             }
             .tabela-header, .tabela-row {
                 display: grid;
@@ -184,7 +184,7 @@ def main():
             }
             .tabela-col {
                 text-align: left;
-                padding: 6px;
+                padding: 2px;
             }
             .tabela-col-btn {
                 text-align: center;
@@ -217,7 +217,7 @@ def main():
         '<div class="tabela-col">Cliente</div>'
         '<div class="tabela-col">Telefone</div>'
         '<div class="tabela-col">Grupo</div>'
-        '<div class="tabela-col">Cota</div>'
+        #'<div class="tabela-col">Cota</div>'
         '<div class="tabela-col">% Amortizado</div>'
         '<div class="tabela-col">Valor Quitação</div>'
         '<div class="tabela-col">Modelo</div>'
@@ -230,27 +230,27 @@ def main():
 
     # Criar a tabela com botões para cada linha
     for index, row in tabela.iterrows():
-        col1, col2, col3, col4, col5, col6, col7, col8, col9 = st.columns([1,1,1,1,1,1,1,1,1])  # Ajusta o layout das colunas
+        col1, col2, col3, col4, col5, col6, col7, col8 = st.columns([1,1,1,1,1,1,1,1])  # Ajusta o layout das colunas
 
         with col1:
             #st.write(row["Cliente"])
-            st.markdown(f'<div class="tabela-row">{row["Cliente"]}</div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="tabela-row">{row["Vendedor"]}</div>', unsafe_allow_html=True)
         
-        with col1:
+        with col2:
             #st.write(row["Cliente"])
             st.markdown(f'<div class="tabela-row">{row["Cliente"]}</div>', unsafe_allow_html=True)
         
-        with col2:
+        with col3:
             #st.write(row["Telefone"])
             st.markdown(f'<div class="tabela-row">{row["Telefone"]}</div>', unsafe_allow_html=True)
 
-        with col3:
+        with col4:
             #st.write(row["Telefone"])
             st.markdown(f'<div class="tabela-row">{row["Grupo"]}</div>', unsafe_allow_html=True)
 
-        with col4:
+        #with col5:
             #st.write(row["Telefone"])
-            st.markdown(f'<div class="tabela-row">{row["Cota"]}</div>', unsafe_allow_html=True)
+            #st.markdown(f'<div class="tabela-row">{row["Cota"]}</div>', unsafe_allow_html=True)
 
         with col5:
             #st.write(row["Telefone"])
