@@ -90,11 +90,9 @@ def main():
 
     carteira_loja = carteira[carteira["loja"] == loja]
 
-    carteira_normal = carteira[carteira["Status Contrato"] == status]
+    carteira_normal = carteira_loja[carteira_loja["Status Contrato"] == status]
 
     carteira_normal = carteira_normal[carteira_normal["classificacao_amortizado"] == classificacao]
-
-    carteira_normal = carteira_normal[carteira_normal["Modelo"] == modelo]
 
     assembleias_agg = carteira_normal.groupby("Próxima Assembleia")["quantidade"].sum().reset_index()
 
@@ -153,6 +151,15 @@ def main():
             """,
             unsafe_allow_html=True
         )
+
+    modelos = tabela["Modelo"].unique()
+    modelo = st.multiselect("O filtro modelo será aplicado somente na tabela abaixo (Se nao selecionar nada sera filtrado TODOS)", modelos)
+
+    if modelo:
+        tabela = tabela[tabela["Modelo"].isin(modelo)]
+
+    else:
+        tabela = tabela  # Se nada for selecionado, mostra tudo
 
     st.markdown(
         """
