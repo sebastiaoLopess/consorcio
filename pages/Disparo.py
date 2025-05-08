@@ -70,8 +70,6 @@ def main():
     status = st.sidebar.selectbox("Status", status_unique)
     classificacoes = carteira["classificacao_amortizado"].unique()
     classificacao = st.sidebar.selectbox("Classificação de Amortização", classificacoes)
-    modelos = carteira["Modelo"].unique()
-    modelo = st.sidebar.selectbox("Modelo", modelos)
 
     # ----- TRATAMENTO DE DADOS ---- #
 
